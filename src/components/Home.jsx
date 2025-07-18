@@ -48,13 +48,13 @@ export default function Home() {
   };
 
   return (
-    <>
-      <button onClick={incrementRun}>Run</button>
+    <div className="home-container">
+      <button className="home-btn" onClick={incrementRun}>Run</button>
       <h3>{run}</h3>
-      <button onClick={incrementWicket}>Wicket</button>
+      <button className="home-btn" onClick={incrementWicket}>Wicket</button>
       <h3>{wicket}</h3>
       <hr />
-      {message}
-    </>
+      <span className="home-message">{message}</span>
+    </div>
   );
 }

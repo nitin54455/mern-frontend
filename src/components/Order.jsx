@@ -23,15 +23,15 @@ export default function Order() {
   }, []);
 
   return (
-    <div>
-      <h3>My Orders</h3>
+    <div className="order-container">
+      <h3 className="order-title">My Orders</h3>
       {orders &&
         orders.map((order) => (
-          <div>
-            <p>OrderId:{order._id}</p>
-            <p>Order Value: {order.orderValue} </p>
-            <p>Status:{order.status}</p>
-            <table border="1">
+          <div className="order-card" key={order._id}>
+            <p className="order-id">OrderId: {order._id}</p>
+            <p className="order-value">Order Value: {order.orderValue}</p>
+            <p className="order-status">Status: {order.status}</p>
+            <table className="order-table">
               <thead>
                 <tr>
                   <th>Product</th>
