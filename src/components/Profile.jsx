@@ -44,42 +44,45 @@ export default function Profile() {
     }
   };
   return (
-    <div>
-      <h3>My Profile</h3>
-      <button onClick={logout}>Logout</button>
-      <p>
+    <div className="profile-container">
+      <h3 className="profile-title">My Profile</h3>
+      <button className="profile-logout" onClick={logout}>Logout</button>
+      {error && <div className={error === "Data saved successfully." ? "profile-success" : "profile-error"}>{error}</div>}
+      <form className="profile-form" onSubmit={e => {e.preventDefault(); handleSubmit();}}>
         <input
           name="firstName"
           type="text"
+          className="profile-input"
           onChange={handleChange}
           defaultValue={profile.firstName}
+          placeholder="First Name"
         />
-      </p>
-      <p>
         <input
           name="lastName"
           type="text"
+          className="profile-input"
           onChange={handleChange}
           defaultValue={profile.lastName}
+          placeholder="Last Name"
         />
-      </p>
-      <p>
         <input
           name="email"
           type="text"
+          className="profile-input"
           onChange={handleChange}
           defaultValue={profile.email}
+          placeholder="Email"
         />
-      </p>
-      <p>
         <input
           name="password"
           type="password"
+          className="profile-input"
           onChange={handleChange}
           defaultValue={profile.password}
+          placeholder="Password"
         />
-      </p>
-      <button onClick={handleSubmit}>Update Profile</button>
+        <button type="submit" className="profile-btn">Update Profile</button>
+      </form>
     </div>
   );
 }

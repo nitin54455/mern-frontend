@@ -40,16 +40,16 @@ export default function Order() {
                   <th>Total</th>
                 </tr>
               </thead>
-              {order.items.map((item) => (
-                <tbody key={item._id}>
-                  <tr>
+              <tbody>
+                {order.items.map((item) => (
+                  <tr key={item._id}>
                     <td>{item.productName}</td>
                     <td>{item.price}</td>
                     <td>{item.qty}</td>
                     <td>{item.qty * item.price}</td>
                   </tr>
-                </tbody>
-              ))}
+                ))}
+              </tbody>
             </table>
             <hr />
           </div>

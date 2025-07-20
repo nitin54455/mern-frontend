@@ -21,28 +21,26 @@ export default function Login() {
     }
   };
   return (
-    <div>
-      <h2>Login</h2>
-      {error}
-      <p>
+    <div className="login-container">
+      <h2 className="login-title">Login</h2>
+      {error && <div className="login-error">{error}</div>}
+      <form className="login-form" onSubmit={e => {e.preventDefault(); handleSubmit();}}>
         <input
           type="text"
+          className="login-input"
           placeholder="Email Address"
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
-      </p>
-      <p>
         <input
           type="password"
+          className="login-input"
           placeholder="Password"
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
-      </p>
-      <p>
-        <button onClick={handleSubmit}>Submit</button>
-      </p>
-      <hr />
-      <Link to="/register">Create Account</Link>
+        <button type="submit" className="login-btn">Submit</button>
+      </form>
+      <hr style={{width: '100%', margin: '1.5rem 0'}} />
+      <Link to="/register" className="login-link">Create Account</Link>
     </div>
   );
 }
