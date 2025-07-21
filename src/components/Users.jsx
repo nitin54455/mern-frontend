@@ -132,104 +132,65 @@ export default function Users() {
   };
 
   return (
-    <div>
-      <h2>User Management</h2>
-      {error && <p>{error}</p>}
-
-      <form ref={frmRef}>
-        <input
-          name="firstName"
-          value={form.firstName}
-          type="text"
-          placeholder="First Name"
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="lastName"
-          value={form.lastName}
-          type="text"
-          placeholder="Last Name"
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="email"
-          value={form.email}
-          type="text"
-          placeholder="Email Address"
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="password"
-          value={form.password}
-          type="password"
-          placeholder="New Password"
-          onChange={handleChange}
-          required
-        />
-        <select name="role" value={form.role} required onChange={handleChange}>
+    <div className="users-admin-container" style={{ maxWidth: 900, margin: '2rem auto', background: '#fff', borderRadius: 16, boxShadow: '0 4px 24px rgba(0,0,0,0.08)', padding: '2rem' }}>
+      <h2 style={{ fontSize: '1.7rem', fontWeight: 700, color: '#4f46e5', marginBottom: '1.5rem', letterSpacing: 1 }}>User Management</h2>
+      {error && <div style={{ color: '#e11d48', marginBottom: '1rem', fontWeight: 500 }}>{error}</div>}
+      <form ref={frmRef} style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '1.5rem', background: '#f9fafb', borderRadius: 10, padding: '1rem' }}>
+        <input name="firstName" value={form.firstName} type="text" placeholder="First Name" onChange={handleChange} required style={{ flex: 1, padding: '0.5rem', borderRadius: 6, border: '1px solid #e5e7eb' }} />
+        <input name="lastName" value={form.lastName} type="text" placeholder="Last Name" onChange={handleChange} required style={{ flex: 1, padding: '0.5rem', borderRadius: 6, border: '1px solid #e5e7eb' }} />
+        <input name="email" value={form.email} type="text" placeholder="Email Address" onChange={handleChange} required style={{ flex: 2, padding: '0.5rem', borderRadius: 6, border: '1px solid #e5e7eb' }} />
+        <input name="password" value={form.password} type="password" placeholder="New Password" onChange={handleChange} required style={{ flex: 1, padding: '0.5rem', borderRadius: 6, border: '1px solid #e5e7eb' }} />
+        <select name="role" value={form.role} required onChange={handleChange} style={{ flex: 1, padding: '0.5rem', borderRadius: 6, border: '1px solid #e5e7eb', background: '#fff' }}>
           <option value="">--Select Role--</option>
           <option value="user">User</option>
           <option value="admin">Admin</option>
         </select>
-
         {editId ? (
           <>
-            <button onClick={handleUpdate}>Update</button>
-            <button onClick={handleCancel}>Cancel</button>
+            <button onClick={handleUpdate} style={{ background: '#4f46e5', color: '#fff', border: 'none', borderRadius: 6, padding: '0.5rem 1.2rem', fontWeight: 600, cursor: 'pointer' }}>Update</button>
+            <button onClick={handleCancel} style={{ background: '#f1f5f9', color: '#4f46e5', border: 'none', borderRadius: 6, padding: '0.5rem 1.2rem', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
           </>
         ) : (
-          <button onClick={handleAdd}>Add</button>
+          <button onClick={handleAdd} style={{ background: '#4f46e5', color: '#fff', border: 'none', borderRadius: 6, padding: '0.5rem 1.2rem', fontWeight: 600, cursor: 'pointer' }}>Add</button>
         )}
       </form>
-
-      <div>
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchVal}
-          onChange={(e) => setSearchVal(e.target.value)}
-        />
-        <button onClick={() => fetchUsers()}>Search</button>
+      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
+        <input type="text" placeholder="Search..." value={searchVal} onChange={(e) => setSearchVal(e.target.value)} style={{ flex: 1, padding: '0.5rem', borderRadius: 6, border: '1px solid #e5e7eb' }} />
+        <button onClick={() => fetchUsers()} style={{ background: '#4f46e5', color: '#fff', border: 'none', borderRadius: 6, padding: '0.5rem 1.2rem', fontWeight: 600, cursor: 'pointer' }}>Search</button>
       </div>
-
-      <table border="1">
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email Address</th>
-            <th>Role</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Array.isArray(users) && users.map((value) => (
-            <tr key={value._id}>
-              <td>{value.firstName}</td>
-              <td>{value.lastName}</td>
-              <td>{value.email}</td>
-              <td>{value.role}</td>
-              <td>
-                <button onClick={() => handleEdit(value)}>Edit</button>
-                <button onClick={() => handleDelete(value._id)}>Delete</button>
-              </td>
+      <div style={{ overflowX: 'auto', borderRadius: 10 }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', background: '#f9fafb', borderRadius: 10 }}>
+          <thead>
+            <tr style={{ background: '#f1f5f9', color: '#4f46e5', fontWeight: 700 }}>
+              <th style={{ padding: '0.75rem' }}>First Name</th>
+              <th style={{ padding: '0.75rem' }}>Last Name</th>
+              <th style={{ padding: '0.75rem' }}>Email Address</th>
+              <th style={{ padding: '0.75rem' }}>Role</th>
+              <th style={{ padding: '0.75rem' }}>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <div>
-        <button disabled={page === 1} onClick={() => setPage(page - 1)}>
+          </thead>
+          <tbody>
+            {Array.isArray(users) && users.map((value, idx) => (
+              <tr key={value._id} style={{ background: idx % 2 === 0 ? '#fff' : '#f3f4f6', transition: 'background 0.2s' }}>
+                <td style={{ padding: '0.75rem' }}>{value.firstName}</td>
+                <td style={{ padding: '0.75rem' }}>{value.lastName}</td>
+                <td style={{ padding: '0.75rem' }}>{value.email}</td>
+                <td style={{ padding: '0.75rem' }}>{value.role}</td>
+                <td style={{ padding: '0.75rem' }}>
+                  <button onClick={() => handleEdit(value)} style={{ background: '#f1f5f9', color: '#4f46e5', border: 'none', borderRadius: 6, padding: '0.3rem 1rem', fontWeight: 600, marginRight: 8, cursor: 'pointer' }}>Edit</button>
+                  <button onClick={() => handleDelete(value._id)} style={{ background: '#e11d48', color: '#fff', border: 'none', borderRadius: 6, padding: '0.3rem 1rem', fontWeight: 600, cursor: 'pointer' }}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', marginTop: '2rem' }}>
+        <button disabled={page === 1} onClick={() => setPage(page - 1)} style={{ background: '#f1f5f9', color: '#4f46e5', border: 'none', borderRadius: 6, padding: '0.5rem 1.2rem', fontWeight: 600, cursor: page === 1 ? 'not-allowed' : 'pointer' }}>
           Previous
         </button>
-        Page {page} of {totalPages}
-        <button
-          disabled={page === totalPages}
-          onClick={() => setPage(page + 1)}
-        >
+        <span style={{ fontWeight: 600 }}>Page {page} of {totalPages}</span>
+        <button disabled={page === totalPages} onClick={() => setPage(page + 1)} style={{ background: '#f1f5f9', color: '#4f46e5', border: 'none', borderRadius: 6, padding: '0.5rem 1.2rem', fontWeight: 600, cursor: page === totalPages ? 'not-allowed' : 'pointer' }}>
           Next
         </button>
       </div>
